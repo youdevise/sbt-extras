@@ -101,7 +101,7 @@ die() {
 make_url () {
   version="$1"
 
-  echo "http://typesafe.artifactoryonline.com/typesafe/ivy-releases/org.scala-sbt/sbt-launch/$version/sbt-launch.jar"
+  echo $(eval echo ${sbt_launch_url_pattern})
 }
 
 readarr () {
@@ -139,6 +139,7 @@ declare -r script_name="$(basename $script_path)"
 declare java_cmd=java
 declare sbt_opts_file=$(init_default_option_file SBT_OPTS .sbtopts)
 declare jvm_opts_file=$(init_default_option_file JVM_OPTS .jvmopts)
+declare sbt_launch_url_pattern='http://typesafe.artifactoryonline.com/typesafe/ivy-releases/org.scala-sbt/sbt-launch/$version/sbt-launch.jar'
 
 # pull -J and -D options to give to java.
 declare -a residual_args
@@ -349,6 +350,7 @@ process_args ()
        -sbt-jar) require_arg path "$1" "$2" && sbt_jar="$2" && shift 2 ;;
    -sbt-version) require_arg version "$1" "$2" && sbt_explicit_version="$2" && shift 2 ;;
 -sbt-launch-dir) require_arg path "$1" "$2" && sbt_launch_dir="$2" && shift 2 ;;
+-sbt-launch-url-pattern) require_arg path "$1" "$2" && sbt_launch_url_pattern="$2" && shift 2 ;;
  -scala-version) require_arg version "$1" "$2" && setScalaVersion "$2" && shift 2 ;;
 -binary-version) require_arg version "$1" "$2" && addSbt "set scalaBinaryVersion in ThisBuild := \"$2\"" && shift 2 ;;
     -scala-home) require_arg path "$1" "$2" && addSbt "set every scalaHome := Some(file(\"$2\"))" && shift 2 ;;
