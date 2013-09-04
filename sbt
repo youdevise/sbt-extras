@@ -257,6 +257,7 @@ Usage: $script_name [options]
   -sbt-version  <version>   use the specified version of sbt (default: $sbt_release_version)
   -sbt-jar      <path>      use the specified jar as the sbt launcher
   -sbt-launch-dir <path>    directory to hold sbt launchers (default: $sbt_launch_dir)
+  -sbt-launch-url-prefix <url> url prefix for downloading sbt launcher jar (default: $sbt_launch_url_prefix)
 
   # scala version (default: as chosen by sbt)
   -28                       use $latest_28
